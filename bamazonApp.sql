@@ -9,6 +9,7 @@ CREATE TABLE `products` (
   PRIMARY KEY (`item_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1
 
+/*
 # item_id, product_name, department_name, price, stock_quantity
 6, ryzen 7 2700x, electronics, 310, 15
 
@@ -26,3 +27,4 @@ item_id, product_name, department_name, price, stock_quantity
 3, headphones, electronics, 150, 4
 `bamazon`.`products`
 bamazon.products	analyze	status	OK
+*/
