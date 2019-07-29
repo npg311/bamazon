@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "npg12345",
+  password: "",
   database: "bamazon"
 });
 
@@ -25,6 +25,8 @@ var connection = mysql.createConnection({
   
   connection.connect(function(err) {
     if (err) throw err;
+
+      
     console.log("--------------------------------------------- ");
     console.log("--------------------------------------------- ");
     console.log("-------------Welcome to BAMAZON!------------- ");
@@ -36,7 +38,7 @@ var connection = mysql.createConnection({
     queryAllProducts();
    /* queryDanceSongs(); */
   });
-  
+
   function queryAllProducts() {
     connection.query("SELECT * FROM products", function(err, res) {
       if (err) throw err;
@@ -52,7 +54,7 @@ var connection = mysql.createConnection({
       purchaseItem();
     });
   }
-   var purchaseItem = function() {
+   var purchaseItem = function start() {
     inquirer
       .prompt([{
         name: "itemId",
@@ -62,7 +64,7 @@ var connection = mysql.createConnection({
       {
         name: "quantity",
         type: "input",
-        message: "How many  + selectedItem.product_name +  would you like to buy?",
+        message: "How many would you like to buy?"
          //choices: [SELECT * queryAllProducts],
         }]).then(function(answer){
           connection.query("SELECT * FROM products", function(err, res) {
@@ -74,7 +76,7 @@ var connection = mysql.createConnection({
                 selectedItem = res[i];
               }
             }
-            if (selectedItem.stock_quantity > parseInt(answer.quantity)) {
+            if (selectedItem.stock_quantity >= parseInt(answer.quantity)) {
               connection.query("UPDATE products SET ? WHERE ?",
              [{ stock_quantity: (selectedItem.stock_quantity - parseInt(answer.quantity))},
             { item_id: selectedItem.item_id}],
